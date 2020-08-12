@@ -282,7 +282,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<br>\r\n<br>\r\n<br>\r\n<div class=\"form-group\" >\r\n    <select class=\"form-control\">\r\n      <option [value]=\"0\" selected>add subject</option>\r\n      <option *ngFor=\"let subject of subjects\" [value]=\"subject.id\" (click) = \"add(subject)\"> \r\n        {{subject.name}}\r\n      </option>\r\n    </select>\r\n  </div>\r\n\r\n<div class=\"box\">\r\n    <!-- /.box-header -->\r\n    <div class=\"box-body\">\r\n        <div id=\"example1_wrapper\" class=\"dataTables_wrapper form-inline dt-bootstrap\">\r\n\r\n            <div class=\"row\">\r\n                <div class=\"col-sm-12\">\r\n                    <table id=\"example1\" class=\"table table-bordered table-striped dataTable\" role=\"grid\"\r\n                        aria-describedby=\"example1_info\">\r\n                        <thead>\r\n                            <tr role=\"row\">\r\n                                <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-sort=\"ascending\" aria-label=\"user name: activate to sort column descending\"\r\n                                    style=\"width: 182px;\">id</th>\r\n                                <th class=\"sorting\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-label=\"name: activate to sort column ascending\" style=\"width: 225px;\">\r\n                                    name</th>\r\n                                <th>\r\n\r\n                                </th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr role=\"row\" class=\"even\" *ngFor=\"let subject of userSubjects\">\r\n                                <td class=\"sorting_1\">{{subject.id}}</td>\r\n                                <td>{{subject.name}}</td>\r\n                                \r\n                                <td>\r\n                                    <button class=\"danger\" (click)=\"remove(subject.name)\">Delete</button>\r\n                                </td>\r\n                                \r\n                            </tr>\r\n                        </tbody>\r\n                        <tfoot>\r\n                           \r\n                        </tfoot>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n        <button class=\"btn btn-success\" (click)=\"save()\">Save</button>\r\n    </div>\r\n    <!-- /.box-body -->\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<br>\r\n<br>\r\n<br>\r\n<div class=\"form-group\" >\r\n    <select class=\"form-control\"  (change)=\"add($event.target.value)\">\r\n      <option [value]=\"0\" selected>add subject</option>\r\n      <option *ngFor=\"let subject of subjects\" [value]=\"subject.id\"> \r\n        {{subject.name}}\r\n      </option>\r\n    </select>\r\n  </div>\r\n\r\n<div class=\"box\">\r\n    <!-- /.box-header -->\r\n    <div class=\"box-body\">\r\n        <div id=\"example1_wrapper\" class=\"dataTables_wrapper form-inline dt-bootstrap\">\r\n\r\n            <div class=\"row\">\r\n                <div class=\"col-sm-12\">\r\n                    <table id=\"example1\" class=\"table table-bordered table-striped dataTable\" role=\"grid\"\r\n                        aria-describedby=\"example1_info\">\r\n                        <thead>\r\n                            <tr role=\"row\">\r\n                                <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-sort=\"ascending\" aria-label=\"user name: activate to sort column descending\"\r\n                                    style=\"width: 182px;\">id</th>\r\n                                <th class=\"sorting\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-label=\"name: activate to sort column ascending\" style=\"width: 225px;\">\r\n                                    name</th>\r\n                                <th>\r\n\r\n                                </th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr role=\"row\" class=\"even\" *ngFor=\"let subject of userSubjects\">\r\n                                <td class=\"sorting_1\">{{subject.id}}</td>\r\n                                <td>{{subject.name}}</td>\r\n                                \r\n                                <td>\r\n                                    <button class=\"danger\" (click)=\"remove(subject.name)\">Delete</button>\r\n                                </td>\r\n                                \r\n                            </tr>\r\n                        </tbody>\r\n                        <tfoot>\r\n                           \r\n                        </tfoot>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n        <button class=\"btn btn-success\" (click)=\"save()\">Save</button>\r\n    </div>\r\n    <!-- /.box-body -->\r\n</div>");
 
 /***/ }),
 
@@ -2490,10 +2490,13 @@ let UserSubjComponent = class UserSubjComponent {
             this.subjectService.getListSubjects().subscribe((data) => { this.subjects = data; console.log(data); });
         });
     }
+    //remove from array during run time
     remove(name) {
         this.userSubjects.splice(this.userSubjects.indexOf(name), 1);
     }
-    add(subjecttoadd) {
+    //add to array during run time
+    add(id) {
+        var subjecttoadd = this.search(Number(id), this.subjects);
         let itemAlreadyExist = this.userSubjects.find(item => item.id === subjecttoadd.id);
         if (itemAlreadyExist) {
             alert("already added");
@@ -2502,8 +2505,8 @@ let UserSubjComponent = class UserSubjComponent {
             this.userSubjects.push(subjecttoadd);
         }
     }
+    //save subjects
     save() {
-        console.log(this.userSubjects);
         var form = new FormData();
         form.append("subject", "1");
         this.userSubjects.forEach(function (value) {
@@ -2511,6 +2514,14 @@ let UserSubjComponent = class UserSubjComponent {
             console.log(value.id + value.name);
         });
         this.user_subject.updateUserSubjects(this.id, form);
+    }
+    //searc and return item value from array
+    search(nameKey, myArray) {
+        for (var i = 0; i < myArray.length; i++) {
+            if (myArray[i].id === nameKey) {
+                return myArray[i];
+            }
+        }
     }
 };
 UserSubjComponent.ctorParameters = () => [

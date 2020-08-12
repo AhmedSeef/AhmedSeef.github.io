@@ -779,7 +779,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "getusertype",
         value: function getusertype() {
           this.user_type = JSON.parse(localStorage.getItem('user_type'));
-          console.log(this.user_type);
           return this.user_type;
         }
       }, {
