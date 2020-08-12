@@ -401,7 +401,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "";
+    __webpack_exports__["default"] = "<div class=\"box\">\r\n    <!-- /.box-header -->\r\n    <div class=\"box-body\">\r\n        <div id=\"example1_wrapper\" class=\"dataTables_wrapper form-inline dt-bootstrap\">\r\n            \r\n            <div class=\"row\">\r\n                <div class=\"col-sm-12\">\r\n                    <table id=\"example1\" class=\"table table-bordered table-striped dataTable\" role=\"grid\"\r\n                        aria-describedby=\"example1_info\">\r\n                        <thead>\r\n                            <tr role=\"row\">\r\n                                <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-sort=\"ascending\"\r\n                                    aria-label=\"user name: activate to sort column descending\"\r\n                                    style=\"width: 182px;\">id</th>\r\n                                <th class=\"sorting\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-label=\"name: activate to sort column ascending\" style=\"width: 225px;\">\r\n                                    name</th>\r\n                                \r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr role=\"row\" class=\"even\" *ngFor=\"let material of materials.data\">\r\n                                <td class=\"sorting_1\">{{material.title}}</td>\r\n                                <td><a href=\"{{material.path}}\" download>Download the file</a></td>  \r\n                            </tr>\r\n                        </tbody>\r\n                        <tfoot>\r\n                            <tr>\r\n                                \r\n                            </tr>\r\n                        </tfoot>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- /.box-body -->\r\n</div>";
     /***/
   },
 
@@ -4115,9 +4115,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(SubjectMaterialsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
+          var _this18 = this;
+
           this.subjectId = this.router.snapshot.params['id'];
           this.subjectService.getSubjectMAterial(2).subscribe(function (data) {
-            console.log(data);
+            _this18.materials = data;
           });
         }
       }]);
@@ -4267,19 +4269,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UpdateUserComponent, [{
         key: "getcategories",
         value: function getcategories() {
-          var _this18 = this;
+          var _this19 = this;
 
           this.ctegorService.getListCategories().subscribe(function (data) {
-            _this18.categories = data;
+            _this19.categories = data;
           });
         }
       }, {
         key: "getStages",
         value: function getStages() {
-          var _this19 = this;
+          var _this20 = this;
 
           this.stageService.getListStages().subscribe(function (data) {
-            _this19.stages = data;
+            _this20.stages = data;
           });
         }
       }, {
@@ -4458,14 +4460,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UserSubjComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this20 = this;
+          var _this21 = this;
 
           this.id = this.route.snapshot.params['id'];
           this.user_subject.getUserSubjects(this.id).subscribe(function (data) {
-            return _this20.userSubjects = data;
+            return _this21.userSubjects = data;
           }, function (error) {}, function () {
-            _this20.subjectService.getListSubjects().subscribe(function (data) {
-              _this20.subjects = data;
+            _this21.subjectService.getListSubjects().subscribe(function (data) {
+              _this21.subjects = data;
               console.log(data);
             });
           });
@@ -4487,12 +4489,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           } else {
             this.userSubjects.push(subjecttoadd);
           }
-
-          console.log(this.userSub);
         }
       }, {
         key: "save",
         value: function save() {
+          console.log(this.userSubjects);
           var form = new FormData();
           form.append("subject", "1");
           this.userSubjects.forEach(function (value) {
@@ -4602,7 +4603,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function UsersListComponent(userList, sharedservice, auth) {
-        var _this21 = this;
+        var _this22 = this;
 
         _classCallCheck(this, UsersListComponent);
 
@@ -4611,7 +4612,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.auth = auth;
         this.userObserver = {
           next: function next(data) {
-            return _this21.getusers();
+            return _this22.getusers();
           },
           error: function error(err) {
             return console.error('Observer got an error: ' + err);
@@ -4634,10 +4635,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getusers",
         value: function getusers() {
-          var _this22 = this;
+          var _this23 = this;
 
           this.userList.getAllUsers().subscribe(function (data) {
-            _this22.users = data;
+            _this23.users = data;
           });
         }
       }, {

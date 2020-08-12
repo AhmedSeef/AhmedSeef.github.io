@@ -256,7 +256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"box\">\r\n    <!-- /.box-header -->\r\n    <div class=\"box-body\">\r\n        <div id=\"example1_wrapper\" class=\"dataTables_wrapper form-inline dt-bootstrap\">\r\n            \r\n            <div class=\"row\">\r\n                <div class=\"col-sm-12\">\r\n                    <table id=\"example1\" class=\"table table-bordered table-striped dataTable\" role=\"grid\"\r\n                        aria-describedby=\"example1_info\">\r\n                        <thead>\r\n                            <tr role=\"row\">\r\n                                <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-sort=\"ascending\"\r\n                                    aria-label=\"user name: activate to sort column descending\"\r\n                                    style=\"width: 182px;\">id</th>\r\n                                <th class=\"sorting\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\r\n                                    aria-label=\"name: activate to sort column ascending\" style=\"width: 225px;\">\r\n                                    name</th>\r\n                                \r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr role=\"row\" class=\"even\" *ngFor=\"let material of materials.data\">\r\n                                <td class=\"sorting_1\">{{material.title}}</td>\r\n                                <td><a href=\"{{material.path}}\" download>Download the file</a></td>  \r\n                            </tr>\r\n                        </tbody>\r\n                        <tfoot>\r\n                            <tr>\r\n                                \r\n                            </tr>\r\n                        </tfoot>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- /.box-body -->\r\n</div>");
 
 /***/ }),
 
@@ -2280,7 +2280,7 @@ let SubjectMaterialsComponent = class SubjectMaterialsComponent {
     }
     ngOnInit() {
         this.subjectId = this.router.snapshot.params['id'];
-        this.subjectService.getSubjectMAterial(2).subscribe((data) => { console.log(data); });
+        this.subjectService.getSubjectMAterial(2).subscribe((data) => { this.materials = data; });
     }
 };
 SubjectMaterialsComponent.ctorParameters = () => [
@@ -2501,9 +2501,9 @@ let UserSubjComponent = class UserSubjComponent {
         else {
             this.userSubjects.push(subjecttoadd);
         }
-        console.log(this.userSub);
     }
     save() {
+        console.log(this.userSubjects);
         var form = new FormData();
         form.append("subject", "1");
         this.userSubjects.forEach(function (value) {
