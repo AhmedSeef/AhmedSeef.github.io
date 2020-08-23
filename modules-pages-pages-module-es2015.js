@@ -256,7 +256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"box\">\n    <!-- /.box-header -->\n    <div class=\"box-body\">\n        <div id=\"example1_wrapper\" class=\"dataTables_wrapper form-inline dt-bootstrap\">\n\n            <div class=\"row\">\n                <div class=\"col-sm-12\">\n                    <table id=\"example1\" class=\"table table-bordered table-striped dataTable\" role=\"grid\"\n                        aria-describedby=\"example1_info\">\n                        <thead>\n                            <tr role=\"row\">\n                                <th class=\"sorting_asc\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\n                                    aria-sort=\"ascending\" aria-label=\"user name: activate to sort column descending\"\n                                    style=\"width: 182px;\">id</th>\n                                <th class=\"sorting\" tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\"\n                                    aria-label=\"name: activate to sort column ascending\" style=\"width: 225px;\">\n                                    name</th>\n\n                            </tr>\n                        </thead>\n                        <tbody>\n                            <tr role=\"row\" class=\"even\" *ngFor=\"let material of materials\">\n                                <td class=\"sorting_1\">{{material.title}}</td>\n                                <td><a href=\"{{material.path}}\" download>Download the file</a></td>\n                                \n                            </tr>\n                        </tbody>\n                        <tfoot>\n                            <tr>\n\n                            </tr>\n                        </tfoot>\n                    </table>\n                </div>\n            </div>\n        </div>\n    </div>\n    <!-- /.box-body -->\n</div>");
 
 /***/ }),
 
@@ -2304,7 +2304,7 @@ let SubjectMaterialsComponent = class SubjectMaterialsComponent {
     }
     ngOnInit() {
         this.subjectId = this.router.snapshot.params['id'];
-        this.subjectService.getSubjectMAterial(2).subscribe((data) => { console.log(data); });
+        this.subjectService.getSubjectMAterial(2).subscribe((data) => { this.materials = data.data; });
     }
 };
 SubjectMaterialsComponent.ctorParameters = () => [
