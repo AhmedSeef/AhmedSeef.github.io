@@ -1877,7 +1877,7 @@ const routes = [
             { path: 'exams', component: _exam_list_exam_list_component__WEBPACK_IMPORTED_MODULE_20__["ExamListComponent"] },
             { path: 'addexam', component: _add_exam_add_exam_component__WEBPACK_IMPORTED_MODULE_21__["AddExamComponent"] },
             { path: 'addquestion', component: _add_question_add_question_component__WEBPACK_IMPORTED_MODULE_22__["AddQuestionComponent"] },
-            { path: 'userMaterials', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_23__["ProfileComponent"] },
+            { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_23__["ProfileComponent"] },
             { path: 'subjectMaterials/:id', component: _subjectMaterials_subjectMaterials_component__WEBPACK_IMPORTED_MODULE_24__["SubjectMaterialsComponent"] },
             { path: 'addSubjectMaterials/:id', component: _addSubjectMaterial_addSubjectMaterial_component__WEBPACK_IMPORTED_MODULE_25__["AddSubjectMaterialComponent"] },
             { path: "**", component: _dash_board_dash_board_component__WEBPACK_IMPORTED_MODULE_4__["DashBoardComponent"] }

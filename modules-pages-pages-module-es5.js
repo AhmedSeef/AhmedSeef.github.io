@@ -3382,7 +3382,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         path: 'addquestion',
         component: _add_question_add_question_component__WEBPACK_IMPORTED_MODULE_22__["AddQuestionComponent"]
       }, {
-        path: 'userMaterials',
+        path: 'profile',
         component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_23__["ProfileComponent"]
       }, {
         path: 'subjectMaterials/:id',
