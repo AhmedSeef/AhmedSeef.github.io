@@ -1489,6 +1489,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
+            var _this4 = this;
+
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -1499,7 +1501,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                     this.materialService.save(this.form).then(function (response) {
-                      return alert("added succefully");
+                      alert("added succefully");
+                      _this4.loaderHidden = true;
                     }).then(function (result) {
                       return console.log(result);
                     }).catch(function (error) {
@@ -1711,24 +1714,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(AddQuestionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this4 = this;
+          var _this5 = this;
 
           this.examservice.getExamQuestions(1).subscribe(function (data) {
-            _this4.questions = data.data;
-            console.log(_this4.questions);
+            _this5.questions = data.data;
+            console.log(_this5.questions);
           });
         }
       }, {
         key: "addQuestion",
         value: function addQuestion() {
-          var _this5 = this;
+          var _this6 = this;
 
           this.model.mark = this.model.mark.toString();
           this.questionList.push(this.model);
           this.examservice.addQuestions(this.exam.id, this.questionList).subscribe(function () {
             alert("done");
 
-            _this5.questions.push(_this5.model);
+            _this6.questions.push(_this6.model);
           });
         }
       }]);
@@ -1852,10 +1855,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addStage",
         value: function addStage() {
-          var _this6 = this;
+          var _this7 = this;
 
           this.satgeService.addStage(this.stage).subscribe(function () {
-            _this6.sharedSevice.navigate("/home/stages");
+            _this7.sharedSevice.navigate("/home/stages");
           });
         }
       }]);
@@ -2056,7 +2059,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function AddSubjectComponent(router, subjectService, auth, sharedservice, stageService, categoryService) {
-        var _this7 = this;
+        var _this8 = this;
 
         _classCallCheck(this, AddSubjectComponent);
 
@@ -2074,18 +2077,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         };
         this.satgesObserver = {
           next: function next(data) {
-            return _this7.satges = data;
+            return _this8.satges = data;
           },
           error: function error(err) {
             return console.error('Observer got an error: ' + err);
           },
           complete: function complete() {
-            _this7.categoryService.getListCategories().subscribe(_this7.categoryObserver);
+            _this8.categoryService.getListCategories().subscribe(_this8.categoryObserver);
           }
         };
         this.categoryObserver = {
           next: function next(data) {
-            return _this7.categories = data;
+            return _this8.categories = data;
           },
           error: function error(err) {
             return console.error('Observer got an error: ' + err);
@@ -2118,12 +2121,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addSubject",
         value: function addSubject() {
-          var _this8 = this;
+          var _this9 = this;
 
           this.subjectService.addSsubject(this.subject).subscribe(function () {
             alert("Added succesfully");
 
-            _this8.router.navigateByUrl("/home/subjects");
+            _this9.router.navigateByUrl("/home/subjects");
           });
         }
       }]);
@@ -2370,19 +2373,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getcategories",
         value: function getcategories() {
-          var _this9 = this;
+          var _this10 = this;
 
           this.ctegorService.getListCategories().subscribe(function (data) {
-            _this9.categories = data;
+            _this10.categories = data;
           });
         }
       }, {
         key: "getStages",
         value: function getStages() {
-          var _this10 = this;
+          var _this11 = this;
 
           this.stageService.getListStages().subscribe(function (data) {
-            _this10.stages = data;
+            _this11.stages = data;
           });
         } //slect user type and maping values
 
@@ -2426,7 +2429,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "register",
         value: function register() {
-          var _this11 = this;
+          var _this12 = this;
 
           console.log(this.user);
           this.user.user_type = this.type;
@@ -2434,9 +2437,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var date1 = this.datePipe.transform(date, "yyyy-MM-dd");
           this.userl.registerUser(this.user).subscribe(function (resposnse) {
             console.log(resposnse);
-            _this11.user.user_type = "0";
+            _this12.user.user_type = "0";
 
-            _this11.shareS.navigate("/home/users");
+            _this12.shareS.navigate("/home/users");
           });
         }
       }]);
@@ -2558,6 +2561,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.router = router;
         this.subjectService = subjectService;
         this.auth = auth;
+        this.loaderHidden = true;
         this.model = {
           subject: 0,
           material_type: "pdf",
@@ -2592,7 +2596,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addMaterial",
         value: function addMaterial() {
-          this.materialService.save(this.form);
+          var _this13 = this;
+
+          this.loaderHidden = false;
+          this.delay(5000);
+          this.materialService.save(this.form).then(function (response) {
+            alert("added succefully");
+            _this13.loaderHidden = true;
+          }).then(function (result) {
+            return console.log(result);
+          }).catch(function (error) {
+            return console.log('error', error);
+          });
+          this.loaderHidden = true;
+        }
+      }, {
+        key: "delay",
+        value: function delay(ms) {
+          return new Promise(function (resolve) {
+            return setTimeout(resolve, ms);
+          });
         }
       }]);
 
@@ -2713,10 +2736,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(CategoryListComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this12 = this;
+          var _this14 = this;
 
           this.categoryservice.getListCategories().subscribe(function (data) {
-            _this12.categories = data;
+            _this14.categories = data;
           });
         }
       }, {
@@ -2930,10 +2953,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ExamListComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this13 = this;
+          var _this15 = this;
 
           this.examservice.getAllExam().subscribe(function (data) {
-            _this13.exams = data;
+            _this15.exams = data;
           });
         }
       }, {
@@ -3048,7 +3071,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function MaterialListComponent(sharedservice, mterialService, auth) {
-        var _this14 = this;
+        var _this16 = this;
 
         _classCallCheck(this, MaterialListComponent);
 
@@ -3057,13 +3080,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.auth = auth;
         this.materialObserver = {
           next: function next(data) {
-            return _this14.getMaterials();
+            return _this16.getMaterials();
           },
           error: function error(err) {
             return console.error('Observer got an error: ' + err);
           },
           complete: function complete() {
-            _this14.materials.splice(_this14.materials.indexOf(_this14.matrialId), 1);
+            _this16.materials.splice(_this16.materials.indexOf(_this16.matrialId), 1);
           }
         };
         auth.logOut();
@@ -3077,10 +3100,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getMaterials",
         value: function getMaterials() {
-          var _this15 = this;
+          var _this17 = this;
 
           this.mterialService.getList().subscribe(function (data) {
-            _this15.materials = data;
+            _this17.materials = data;
             console.log(data);
           });
         }
@@ -3754,7 +3777,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function ProfileComponent(auth, subjectService) {
-        var _this16 = this;
+        var _this18 = this;
 
         _classCallCheck(this, ProfileComponent);
 
@@ -3764,7 +3787,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.userId = auth.getUserId();
         auth.logOut();
         subjectService.getUserSubjects(this.userId).subscribe(function (data) {
-          _this16.subjects = data;
+          _this18.subjects = data;
         });
       }
 
@@ -3892,10 +3915,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(StageListComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this17 = this;
+          var _this19 = this;
 
           this.stageService.getListStages().subscribe(function (data) {
-            _this17.stages = data;
+            _this19.stages = data;
           });
         }
       }, {
@@ -4020,10 +4043,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(SubjectListComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this18 = this;
+          var _this20 = this;
 
           this.subjectService.getListSubjects().subscribe(function (data) {
-            _this18.subjects = data;
+            _this20.subjects = data;
           });
         }
       }, {
@@ -4296,19 +4319,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UpdateUserComponent, [{
         key: "getcategories",
         value: function getcategories() {
-          var _this19 = this;
+          var _this21 = this;
 
           this.ctegorService.getListCategories().subscribe(function (data) {
-            _this19.categories = data;
+            _this21.categories = data;
           });
         }
       }, {
         key: "getStages",
         value: function getStages() {
-          var _this20 = this;
+          var _this22 = this;
 
           this.stageService.getListStages().subscribe(function (data) {
-            _this20.stages = data;
+            _this22.stages = data;
           });
         }
       }, {
@@ -4487,14 +4510,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(UserSubjComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this21 = this;
+          var _this23 = this;
 
           this.id = this.route.snapshot.params['id'];
           this.user_subject.getUserSubjects(this.id).subscribe(function (data) {
-            return _this21.userSubjects = data;
+            return _this23.userSubjects = data;
           }, function (error) {}, function () {
-            _this21.subjectService.getListSubjects().subscribe(function (data) {
-              _this21.subjects = data;
+            _this23.subjectService.getListSubjects().subscribe(function (data) {
+              _this23.subjects = data;
               console.log(data);
             });
           });
@@ -4628,7 +4651,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*#__PURE__*/
     function () {
       function UsersListComponent(userList, sharedservice, auth) {
-        var _this22 = this;
+        var _this24 = this;
 
         _classCallCheck(this, UsersListComponent);
 
@@ -4637,7 +4660,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.auth = auth;
         this.userObserver = {
           next: function next(data) {
-            return _this22.getusers();
+            return _this24.getusers();
           },
           error: function error(err) {
             return console.error('Observer got an error: ' + err);
@@ -4660,10 +4683,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getusers",
         value: function getusers() {
-          var _this23 = this;
+          var _this25 = this;
 
           this.userList.getAllUsers().subscribe(function (data) {
-            _this23.users = data;
+            _this25.users = data;
           });
         }
       }, {

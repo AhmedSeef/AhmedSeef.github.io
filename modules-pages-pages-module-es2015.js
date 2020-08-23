@@ -894,7 +894,7 @@ let AddMaterialComponent = class AddMaterialComponent {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             this.loaderHidden = false;
             yield this.delay(300);
-            this.materialService.save(this.form).then(response => alert("added succefully"))
+            this.materialService.save(this.form).then(response => { alert("added succefully"); this.loaderHidden = true; })
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
             this.loaderHidden = true;
@@ -1473,6 +1473,7 @@ let AddSubjectMaterialComponent = class AddSubjectMaterialComponent {
         this.router = router;
         this.subjectService = subjectService;
         this.auth = auth;
+        this.loaderHidden = true;
         this.model = {
             subject: 0,
             material_type: "pdf",
@@ -1499,7 +1500,15 @@ let AddSubjectMaterialComponent = class AddSubjectMaterialComponent {
         }
     }
     addMaterial() {
-        this.materialService.save(this.form);
+        this.loaderHidden = false;
+        this.delay(5000);
+        this.materialService.save(this.form).then(response => { alert("added succefully"); this.loaderHidden = true; })
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+        this.loaderHidden = true;
+    }
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 };
 AddSubjectMaterialComponent.ctorParameters = () => [
